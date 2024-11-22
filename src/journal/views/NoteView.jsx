@@ -12,15 +12,15 @@ export const NoteView = () => {
             alignItems='center'
             sx={{ mb: 1 }}
         >
-            <Grid2 container>
+            <Grid2 container size={8}>
                 <Typography fontSize={39} fontWeight='light'>28 de agosto, 2023</Typography>
             </Grid2>
-            <Grid2 container display='flex' alignItems='center'>
+            <Grid2 container size={4} display='flex' alignItems='center' justifyContent='end'>
                 <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
                 Guardar
             </Grid2>
 
-            <Grid2 container>
+            <Grid2 size={12} container>
                 <TextField
                     type="text"
                     variant="filled"
