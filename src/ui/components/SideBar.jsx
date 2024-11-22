@@ -8,10 +8,10 @@ export const SideBar = ({ drawerWidth = 240 }) => {
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         >
             <Drawer
-                variant="temporary"
+                variant="permanent"
                 open
                 sx={{
-                    display: { xs: 'block' },
+                    display: { xs: 'none', sm: 'block' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
             >
@@ -20,7 +20,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                 </Toolbar>
 
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
