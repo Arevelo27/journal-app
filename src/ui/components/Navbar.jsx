@@ -19,7 +19,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                     <MenuOutlined />
                 </IconButton>
 
-                <Grid2 container alignItems='center' justifyContent='space-between' sx={{ flexGrow: 1 }}>
+                <Grid2 container direction='row' alignItems='center' justifyContent='space-between' sx={{ flexGrow: 1 }}>
                     <Typography variant='h6' noWrap component='div'>Journal App</Typography>
 
                     <IconButton color='error'>
