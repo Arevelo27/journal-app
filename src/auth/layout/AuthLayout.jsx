@@ -9,7 +9,6 @@ export const AuthLayout = ({ children, title = '' }) => {
             alignItems="center"
             justifyContent="center"
             sx={{
-                width: { sm: 450 }, // Ajustado el tamaño en pantalla pequeña
                 minHeight: '100vh',
                 backgroundColor: 'primary.main',
                 padding: 4
@@ -17,8 +16,13 @@ export const AuthLayout = ({ children, title = '' }) => {
         >
             <Grid2 item
                 className='box-shadow'
-                size={{ xs: 12, sm: 6 }} // Ajustado el tamaño
-                sx={{ backgroundColor: 'white', padding: 3, borderRadius: 2 }}
+                xs={3}  // Ajustado el tamaño
+                sx={{
+                    width: { sm: 450 }, // Ajustado el tamaño en pantalla pequeña
+                    backgroundColor: 'white',
+                    padding: 3,
+                    borderRadius: 2
+                }}
             >
                 <Typography variant="h5" sx={{ mb: 1 }}>{title}</Typography>
                 {children}
