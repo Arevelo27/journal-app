@@ -12,14 +12,17 @@ export const authSlice = createSlice({
     },
     reducers: {
         login: ( state, { payload } ) => {
+            state.status = 'authenticated';
         },
-        logout: ( state, { payload } ) => {     
+        logout: ( state, { payload } ) => {
+            state.status = 'not-authenticated';         
         },
         checkingCredentials: ( state ) => {
+            state.status = 'checking';
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { increment } = authSlice.actions;
+export const { login, logout, checkingCredentials } = authSlice.actions;
