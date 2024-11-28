@@ -14,7 +14,7 @@ export const AuthLayout = ({ children, title = '' }) => {
                 padding: 4
             }}
         >
-            <Grid2 item
+            <Grid2
                 className='box-shadow'
                 xs={3}  // Ajustado el tamaño
                 sx={{

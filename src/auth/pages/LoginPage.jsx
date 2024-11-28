@@ -8,7 +8,7 @@ export const LoginPage = () => {
     <AuthLayout title="Login">
       <form>
         <Grid2 container>
-          <Grid2 item size={{ xs: 12 }} sx={{ mt: 2 }}>
+          <Grid2 size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
               label="Correo"
               type="email"
