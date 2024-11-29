@@ -11,7 +11,18 @@ export const RegisterPage = () => {
     displayName: 'Andres Castillo'
   }
 
-  const { displayName, email, password, onInputChange, formState } = useForm(formData);
+  const formValidations = {
+    email: [( value ) => value.includes('@'), 'El correo debe tener una @'],
+    password: [( value ) => value.length >= 6, 'El password debe tener más de 6 letras'],
+    displayName: [( value ) => value.length >= 1, 'El campo de nombre es obligatorio']
+  }
+
+  const { 
+    formState, displayName, email, password, onInputChange,  
+    isFormValid, displayNameValid, emailValid, passwordValid
+  } = useForm(formData, formValidations);
+
+  console.log(displayNameValid)
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -31,6 +42,8 @@ export const RegisterPage = () => {
               name='displayName'
               value={displayName}
               onChange={onInputChange}
+              error={ !displayNameValid }
+              helperText="El campo de nombre es obligatorio"
             />
           </Grid2>
           <Grid2 size={{ xs: 12 }} sx={{ mt: 2 }}>
@@ -42,6 +55,8 @@ export const RegisterPage = () => {
               name='email'
               value={email}
               onChange={onInputChange}
+              error={ !emailValid }
+              helperText="El campo de correo es obligatorio"
             />
           </Grid2>
           <Grid2 size={{ xs: 12 }} sx={{ mt: 2 }}>
@@ -53,6 +68,8 @@ export const RegisterPage = () => {
               name='password'
               value={password}
               onChange={onInputChange}
+              error={ !passwordValid }
+              helperText="El campo de contraseña es obligatorio"
             />
           </Grid2>
 
