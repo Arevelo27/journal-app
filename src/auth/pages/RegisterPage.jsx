@@ -1,36 +1,40 @@
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { Button, Grid2, Link, TextField, Typography } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hook';
 
+const formData = {
+  email: '',
+  password: '',
+  displayName: ''
+}
+
+const formValidations = {
+  email: [(value) => value.includes('@'), 'El correo debe de tener una @'],
+  password: [(value) => value.length >= 6, 'El password debe de tener más de 6 letras.'],
+  displayName: [(value) => value.length >= 1, 'El nombre es obligatorio.'],
+}
+
 export const RegisterPage = () => {
 
-  const formData = {
-    email: 'andres@gmail.com',
-    password: '123456',
-    displayName: 'Andres Castillo'
-  }
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const formValidations = {
-    email: [( value ) => value.includes('@'), 'El correo debe tener una @'],
-    password: [( value ) => value.length >= 6, 'El password debe tener más de 6 letras'],
-    displayName: [( value ) => value.length >= 1, 'El campo de nombre es obligatorio']
-  }
-
-  const { 
-    formState, displayName, email, password, onInputChange,  
-    isFormValid, displayNameValid, emailValid, passwordValid
+  const {
+    formState, displayName, email, password, onInputChange,
+    isFormValid, displayNameValid, emailValid, passwordValid,
   } = useForm(formData, formValidations);
-
-  console.log(displayNameValid)
 
   const onSubmit = (event) => {
     event.preventDefault();
+    setFormSubmitted(true);
+    if (!isFormValid) return;
     console.log(formState)
   }
 
   return (
     <AuthLayout title="Crear Cuenta">
+      <h1>FormValid: {isFormValid ? '✅' : '❌'}</h1>
       <form onSubmit={onSubmit}>
         <Grid2 container>
           <Grid2 size={{ xs: 12 }} sx={{ mt: 2 }}>
@@ -42,8 +46,8 @@ export const RegisterPage = () => {
               name='displayName'
               value={displayName}
               onChange={onInputChange}
-              error={ !displayNameValid }
-              helperText="El campo de nombre es obligatorio"
+              error={!!displayNameValid && formSubmitted}
+              helperText={formSubmitted ? displayNameValid : ''}
             />
           </Grid2>
           <Grid2 size={{ xs: 12 }} sx={{ mt: 2 }}>
@@ -55,8 +59,8 @@ export const RegisterPage = () => {
               name='email'
               value={email}
               onChange={onInputChange}
-              error={ !emailValid }
-              helperText="El campo de correo es obligatorio"
+              error={!!emailValid && formSubmitted}
+              helperText={formSubmitted ? emailValid : ''}
             />
           </Grid2>
           <Grid2 size={{ xs: 12 }} sx={{ mt: 2 }}>
@@ -68,8 +72,8 @@ export const RegisterPage = () => {
               name='password'
               value={password}
               onChange={onInputChange}
-              error={ !passwordValid }
-              helperText="El campo de contraseña es obligatorio"
+              error={!!passwordValid && formSubmitted}
+              helperText={formSubmitted ? passwordValid : ''}
             />
           </Grid2>
 
@@ -88,7 +92,7 @@ export const RegisterPage = () => {
           <Grid2 container direction="row" justifyContent="flex-end" size={{ xs: 12 }}>
             <Typography sx={{ mr: 1 }}>¿Ya tienes cuenta?</Typography>
             <Link component={RouterLink} color='inherit' to="/auth/login">
-              <Typography>Ingresar</Typography>
+              Ingresar
             </Link>
           </Grid2>
 
