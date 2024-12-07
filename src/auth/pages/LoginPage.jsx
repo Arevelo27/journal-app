@@ -1,29 +1,30 @@
 import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import { Button, Grid2, Link, TextField, Typography } from '@mui/material'
+import { Alert, Button, Grid2, Link, TextField, Typography } from '@mui/material'
 import { Google } from '@mui/icons-material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hook'
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth'
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth'
 
+const formData = {
+  email: '',
+  password: ''
+}
 export const LoginPage = () => {
 
-  const { status } = useSelector(state => state.auth);
+  const { status, errorMessage } = useSelector(state => state.auth);
 
   const dispatch = useDispatch()
-
-  const { email, password, onInputChange } = useForm({
-    email: 'andres@gmail.com',
-    password: '123456'
-  });
+  const { email, password, onInputChange } = useForm(formData);
 
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(checkingAuthentication(email, password));
-    console.log({ email, password });
+
+    // console.log({ email, password });
+    dispatch(startLoginWithEmailPassword({ email, password }));
   }
 
   const onGoogleSignIn = () => {
@@ -57,6 +58,15 @@ export const LoginPage = () => {
             />
           </Grid2>
 
+          <Grid2
+            container
+            size={{ xs: 12 }}
+            sx={{ display: errorMessage ? '' : 'none', mt: 1 }}
+          >
+            <Grid2 size={{ xs: 12 }}>
+              <Alert severity='error'>{errorMessage}</Alert>
+            </Grid2>
+          </Grid2>
           <Grid2 container spacing={2} size={{ xs: 12 }} sx={{ mb: 2, mt: 1 }}>
             <Grid2 size={{ xs: 12, sm: 6 }} >
               <Button
@@ -90,6 +100,6 @@ export const LoginPage = () => {
 
         </Grid2>
       </form>
-    </AuthLayout>
+    </AuthLayout >
   )
 }
