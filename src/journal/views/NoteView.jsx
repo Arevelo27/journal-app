@@ -1,6 +1,6 @@
 import { Grid2, TextField, Typography } from '@mui/material'
 import { SaveOutlined } from '@mui/icons-material'
-import { ImageGallery } from '../../ui'
+import { ImageGallery } from '../components'
 
 
 export const NoteView = () => {

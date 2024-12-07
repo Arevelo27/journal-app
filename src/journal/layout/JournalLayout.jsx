@@ -1,5 +1,5 @@
 import { Box, Toolbar } from "@mui/material"
-import { Navbar, SideBar } from "../../ui";
+import { Navbar, SideBar } from "../components";
 
 const drawerWidth = 240;
 
