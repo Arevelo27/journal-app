@@ -1,6 +1,6 @@
 import { doc, collection, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB } from "../../firebase/config"
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setSaving, updateNote } from "./"
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "./"
 import { loadNotes } from "../../helpers/loadNotes"
 import { fileUpload } from "../../helpers/fileUpload"
 
@@ -63,7 +63,15 @@ export const startUploadingFiles = (files = []) => {
 
         dispatch(setSaving());
 
-        await fileUpload(files[0]);
-        
+        const fileUploadPromises = [];
+        for (const file of files) {
+            fileUploadPromises.push(fileUpload(file));  // creo una promesa para cada archivo
+        }
+
+        const photosUrls = await Promise.all(fileUploadPromises);  // espero todas las promesas para obtener las urls de las fotos
+
+        console.log(photosUrls)
+
+        dispatch(setPhotosToActiveNote(photosUrls));  // actualizo las fotos en el state
     }
 }
